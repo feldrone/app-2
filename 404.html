@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#0e1f30" />
+    <title>Redirection — FEL DRONE</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <style>
+      :root {
+        color-scheme: light;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fbfaf8;
+        color: #0e1f30;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        padding: 2rem;
+      }
+      .card {
+        max-width: 34rem;
+        border: 1px solid rgba(14, 31, 48, 0.14);
+        background: #fff;
+        padding: 2.5rem;
+      }
+      h1 {
+        margin: 0 0 0.75rem;
+        font-size: 1.35rem;
+        letter-spacing: -0.01em;
+      }
+      p {
+        margin: 0 0 0.5rem;
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+      a {
+        color: #0e1f30;
+        font-weight: 600;
+      }
+      .note {
+        margin-top: 1.5rem;
+        font-size: 0.8rem;
+        color: rgba(14, 31, 48, 0.6);
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+      Static hand-off page, served by GitHub Pages for any unknown path
+      (branch-source deploy serves the repository root; the built app lives in
+      index.html). It parks the requested path — in sessionStorage and in the
+      `p` query parameter — and sends the visitor to the app root, where
+      src/router/index.tsx restores the route with history.replaceState.
+      No framework, no bundle: this file must stay tiny and dependency-free.
+    -->
+    <div class="card">
+      <h1>Un instant — nous ouvrons la page demandée…</h1>
+      <p>
+        Si la redirection ne se lance pas automatiquement,
+        <a id="fallback" href="/">ouvrez l’accueil de FEL DRONE</a>.
+      </p>
+      <p class="note">FEL DRONE — prestations par drone, El Tarf, Algérie.</p>
+    </div>
+
+    <script>
+      (function () {
+        // GitHub Pages project site: the app is served from /<repo>/ (Vite base
+        // `/app/`). Increase to 0 when the site is served from an apex domain.
+        var SEGMENTS_TO_KEEP = 1;
+
+        var location_ = window.location;
+        var base = location_.pathname.split("/").slice(0, 1 + SEGMENTS_TO_KEEP).join("/");
+        var route = location_.pathname.slice(base.length) || "/";
+        var hash = location_.hash || "";
+        var target = base + "/?p=" + encodeURIComponent(route) + hash;
+
+        var fallback = document.getElementById("fallback");
+        if (fallback) fallback.setAttribute("href", base + "/");
+
+        try {
+          window.sessionStorage.setItem("fel-drone:redirect", route + hash);
+        } catch (e) {
+          /* storage unavailable (private mode) — the query parameter still works */
+        }
+
+        location_.replace(target);
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,257 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/* Design tokens — White-first premium corporate art direction          */
+/*                                                                      */
+/* Type: IBM Plex Sans — single superfamily (V10 direction). One family */
+/*     for UI and display, weights 400–700, no second family.           */
+/* Color: paper/off-white dominant, deep aviation navy as the dark      */
+/*     register, one warm signal accent used sparingly.                 */
+/* ------------------------------------------------------------------ */
+@theme {
+  /* Latin first, Arabic second: a mixed string ("FEL DRONE" inside an Arabic
+     sentence, or a wilaya name inside a French one) resolves per glyph run, so
+     no text is ever set in a fallback face. Arabic keeps fatāḥa/tanwīn and
+     digits upright — no synthetic ligatures, no letter-spacing on Arabic. */
+  --font-sans:
+    "IBM Plex Sans", "IBM Plex Sans Arabic", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display:
+    "IBM Plex Sans", "IBM Plex Sans Arabic", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* The wordmark is the brand's own voice: Lexend 700 (approved final typeface),
+     self-hosted via @fontsource so the lockup renders offline as well. The rest
+     of the site's type stays on the frozen IBM Plex superfamily. */
+  --font-wordmark:
+    "Lexend", "IBM Plex Sans", "IBM Plex Sans Arabic", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Neutrals */
+  --color-paper: #fbfaf8;
+  --color-ink: #12151a;
+  --color-ink-soft: #3a3f47;
+  --color-mute: #6b7280;
+  --color-line: #e4e2dd;
+  --color-line-strong: #d5d2ca;
+
+  /* Brand — deep aviation navy + restrained warm signal accent */
+  --color-navy-950: #0a1622;
+  --color-navy-900: #0e1f30;
+  --color-navy-800: #15304a;
+  --color-navy-700: #1d4364;
+  --color-signal-600: #b4823c;
+  --color-signal-500: #c6934a;
+  --color-signal-100: #f4ead9;
+
+  /* States */
+  --color-error: #a13b2c;
+  --color-success: #1d6b3f;
+}
+
+/* Fixed-header height is a single source of truth: header rail, hero
+   padding, scroll offsets and the mobile sheet all read this token. */
+:root {
+  --header-h: 76px;
+}
+@media (min-width: 1024px) {
+  :root {
+    --header-h: 84px;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Offset scroll targets so the fixed header never covers section headings */
+section[id] {
+  scroll-margin-top: calc(var(--header-h) + 1.25rem);
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Global safe-area guard (client spec 2026-09-13): every shell already
+   carries ≥ 20px inline padding (px-6 = 24px); on notched or rounded
+   displays the device inset adds on top, so content can never touch the
+   physical screen edge. */
+body {
+  padding-inline: max(0px, env(safe-area-inset-left)) max(0px, env(safe-area-inset-right));
+}
+
+/* ── Footer — links: full-contrast ink + premium interaction states ────────
+   Client pass 2026-09-13: the sitemap links read as dark gray on deep navy
+   on small phones, and the global navy-800 focus ring is invisible on the
+   navy ground. Links now carry crisp #FFFFFF ink, an elegant light-blue
+   hover/focus (#8AB4FF, restrained — the only accent motion in the footer),
+   a currentColor focus-visible ring with 3px offset, and a soft active
+   state. Unlayered on purpose: these rules replace the utility classes that
+   caused the problem, and the @media print rules still win where defined. */
+footer a {
+  color: #ffffff;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+footer a:hover {
+  color: #8ab4ff;
+}
+footer a:focus-visible {
+  color: #8ab4ff;
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+footer a:active {
+  opacity: 0.8;
+}
+
+/* Display type: optical sizing keeps large cuts tight and editorial */
+.font-display {
+  font-optical-sizing: auto;
+  text-wrap: balance;
+}
+
+/* ── Arabic (العربية) — real RTL typography, not a mirrored LTR page ────────
+   The layout direction itself comes from `dir="rtl"` (see src/i18n): logical
+   utilities (ps/pe/ms/me/start/end, text-start) mirror by themselves, so only
+   writing-system details are corrected here — never the geometry.
+   · tracking: letter-spacing breaks Arabic joining — it is neutralised inside
+     Arabic text, while the uppercase Latin eyebrows keep their spacing.
+   · numerals: the RC number, phone and Plus Code stay Latin (dir="ltr" + <bdi>)
+     so they read left-to-right inside an RTL line.
+   · Arabic glyphs carry more vertical extent — headings get a touch more line
+     height and slightly smaller optical sizes instead of tightening. */
+html[lang="ar"] body {
+  font-synthesis-weight: none;
+}
+html[lang="ar"] :is(p, li, dd, dt, h1, h2, h3, a, button, label, input, select, textarea, span) {
+  letter-spacing: normal;
+}
+html[dir="rtl"] .font-display {
+  line-height: 1.28;
+}
+html[dir="rtl"] :is(h1, h2) {
+  text-wrap: balance;
+}
+/* Numbers, e-mails, phone numbers and identifiers are always LTR runs. */
+html[dir="rtl"] .tabular-nums,
+html[dir="rtl"] .font-mono {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+/* Figcaption sits over imagery: keep the padding logical in RTL too. */
+html[dir="rtl"] figcaption {
+  text-align: start;
+}
+
+::selection {
+  background: var(--color-signal-100);
+  color: var(--color-navy-950);
+}
+
+/* Reveal-on-scroll utility (progressive enhancement, respects reduced motion) */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Focus visibility — accessible, brand-consistent */
+:focus-visible {
+  outline: 2px solid var(--color-navy-800);
+  outline-offset: 3px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Print — clean document rendering of the full page                     */
+/* ------------------------------------------------------------------ */
+@media print {
+  @page {
+    margin: 16mm 14mm;
+  }
+  html {
+    background: #fff;
+  }
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 11pt;
+  }
+  /* Interface chrome has no place on paper */
+  header,
+  .no-print,
+  iframe,
+  img {
+    display: none !important;
+  }
+  footer {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  footer * {
+    color: #000 !important;
+  }
+  section {
+    padding-top: 6mm !important;
+    padding-bottom: 6mm !important;
+    background: #fff !important;
+  }
+  a {
+    color: #000 !important;
+    text-decoration: none;
+  }
+  a[href]::after {
+    content: none !important;
+  }
+  /* Typographic integrity */
+  h1,
+  h2,
+  h3,
+  dt,
+  th {
+    break-after: avoid-page;
+    page-break-after: avoid;
+  }
+  p,
+  li,
+  dd {
+    orphans: 3;
+    widows: 3;
+  }
+  section,
+  dl > div {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  /* Reveal elements must not stay hidden if never scrolled into view */
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

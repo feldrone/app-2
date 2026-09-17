@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FEL DRONE — Topographie &amp; photogrammétrie, suivi de chantier, maintenance drone | El Tarf, Algérie</title>
+    <meta
+      name="description"
+      content="SARL FEL DRONE à El Tarf : topographie &amp; photogrammétrie par drone, suivi &amp; inspection de chantier, maintenance &amp; diagnostic, thermographie, agriculture de précision, vente et location. Devis sur étude — tarification selon la mission."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.feldrone.dz/" />
+    <meta name="author" content="SARL FEL DRONE" />
+
+    <!-- Open Graph — truthful, no invented ratings/coverage -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="FEL DRONE" />
+    <meta property="og:url" content="https://www.feldrone.dz/" />
+    <meta property="og:title" content="FEL DRONE — Topographie, inspection de chantier, maintenance drone" />
+    <meta
+      property="og:description"
+      content="Topographie &amp; photogrammétrie, suivi &amp; inspection de chantier, maintenance &amp; diagnostic drone, thermographie, agriculture, vente, location. Méthode en huit étapes, zéro improvisation. El Tarf, Algérie."
+    />
+    <meta
+      property="og:image"
+      content="https://images.pexels.com/photos/28467369/pexels-photo-28467369.jpeg?auto=compress&cs=tinysrgb&w=1200&h=630&fit=crop"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Télépilote contrôlant un drone professionnel — FEL DRONE" />
+    <meta property="og:locale" content="fr_DZ" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="FEL DRONE — Topographie, inspection, maintenance drone" />
+    <meta
+      name="twitter:description"
+      content="Prestations par drone à El Tarf : topographie &amp; photogrammétrie, suivi de chantier, maintenance &amp; diagnostic. Sur devis."
+    />
+    <meta
+      name="twitter:image"
+      content="https://images.pexels.com/photos/28467369/pexels-photo-28467369.jpeg?auto=compress&cs=tinysrgb&w=1200&h=630&fit=crop"
+    />
+
+    <meta name="theme-color" content="#fbfaf8" />
+
+    <!-- Favicon — V12 symbol (public/favicon.svg). The URL is resolved from the
+         served document's own path instead of a fixed relative href, because the
+         same bundle is deployed twice: at the ROOT of a Vercel host (every deep
+         route is rewritten to this file, so the icon must resolve to
+         /favicon.svg from /services/topographie too) and under the /app/ GitHub
+         Pages project path. Same rule as the router's detectBase() fallback —
+         see src/router/index.tsx. -->
+    <script>
+      (function () {
+        var path = location.pathname;
+        var dir = path.slice(0, path.lastIndexOf("/") + 1);
+        var base = path.slice(-1) === "/" || /\.html?$/i.test(path) ? dir : "/";
+        var link = document.createElement("link");
+        link.rel = "icon";
+        link.type = "image/svg+xml";
+        link.href = base + "favicon.svg";
+        document.head.appendChild(link);
+      })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.pexels.com" />
+    <!-- One superfamily, three languages: IBM Plex Sans (Latin) + IBM Plex Sans
+         Arabic (العربية). Both are loaded up front so switching language never
+         reflows type or falls back silently. -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- LCP boost -->
+    <link
+      rel="preload"
+      as="image"
+      fetchpriority="high"
+      href="https://images.pexels.com/photos/28467369/pexels-photo-28467369.jpeg?auto=compress&cs=tinysrgb&w=1600&h=2000&fit=crop"
+      imagesrcset="https://images.pexels.com/photos/28467369/pexels-photo-28467369.jpeg?auto=compress&cs=tinysrgb&w=800&h=1000&fit=crop 800w, https://images.pexels.com/photos/28467369/pexels-photo-28467369.jpeg?auto=compress&cs=tinysrgb&w=1600&h=2000&fit=crop 1600w"
+      imagesizes="(max-width: 1023px) 100vw, 44vw"
+    />
+
+    <!-- Structured data — factual only, no invented ratings/hours/coverage -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "SARL FEL DRONE",
+        "alternateName": "FEL DRONE",
+        "url": "https://www.feldrone.dz/",
+        "description": "Société algérienne : topographie & photogrammétrie par drone, suivi & inspection de chantier, maintenance & diagnostic drone, thermographie, agriculture de précision, vente et location.",
+        "email": "contact.feldrone@gmail.com",
+        "telephone": "+213661613399",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Cité 150 Logements B",
+          "addressLocality": "Aïn El Assel",
+          "addressRegion": "El Tarf",
+          "addressCountry": "DZ"
+        }
+      }
+    </script>
+  </head>
+  <body class="antialiased">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
