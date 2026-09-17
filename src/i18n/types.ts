@@ -390,6 +390,7 @@ export type Dictionary = {
     legalLink: string;
     contactTitle: string;
     rights: string;
+    credit3d: string;
     backToTop: string;
   };
 

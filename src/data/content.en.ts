@@ -598,6 +598,7 @@ export const en: Dictionary = {
     legalLink: "Legal notice",
     contactTitle: "Contact details",
     rights: "All rights reserved.",
+    credit3d: "3D model: “Fpv Racing Drone Quadcopter” by eagleanurag, CC BY 4.0, via Sketchfab.",
     backToTop: "Back to top",
   },
 

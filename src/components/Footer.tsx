@@ -69,9 +69,22 @@ export default function Footer() {
         </div>
 
         <div className="mt-14 flex flex-col gap-4 border-t border-white/10 pt-7 text-[13px] text-white/70 sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © {new Date().getFullYear()} {company.legalName}. {t.rights}
-          </p>
+          <div>
+            <p>
+              © {new Date().getFullYear()} {company.legalName}. {t.rights}
+            </p>
+            {/* CC-BY-4.0 attribution for the hero 3D model (public/3d/). */}
+            <p className="mt-1 text-[11px] text-white/45">
+              <a
+                href="https://sketchfab.com/3d-models/fpv-racing-drone-quadcopter-fa8b1ca2695e4022a9b4c70401f04b05"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline-offset-2 transition-colors hover:text-white/75 hover:underline"
+              >
+                {t.credit3d}
+              </a>
+            </p>
+          </div>
           <a
             href="#main"
             className="inline-flex items-center gap-2 self-start sm:self-auto"

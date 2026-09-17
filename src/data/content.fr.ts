@@ -609,6 +609,7 @@ export const fr: Dictionary = {
     legalLink: "Mentions légales",
     contactTitle: "Coordonnées",
     rights: "Tous droits réservés.",
+    credit3d: "Modèle 3D : « Fpv Racing Drone Quadcopter » par eagleanurag, CC BY 4.0, via Sketchfab.",
     backToTop: "Haut de page",
   },
 
