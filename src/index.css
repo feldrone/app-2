@@ -256,6 +256,16 @@ html[dir="rtl"] figcaption {
     transform: translateX(100vw) rotate(-6deg);
   }
 }
+/* 3D hero canvas — soft fade-in on first paint (the entrance descent itself
+   runs inside the WebGL loop and is skipped under reduced motion). */
+@keyframes drone-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .drone-enter {
   animation: drone-enter 1.2s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }

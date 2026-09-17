@@ -1,6 +1,6 @@
 import { ArrowRight, PhoneCall, MessageCircle } from "lucide-react";
 import Reveal from "./Reveal";
-import DroneFigure from "./DroneFigure";
+import Drone3D from "./Drone3D";
 import { company } from "../data/company";
 import { Link } from "../router";
 import { PATHS } from "../router/routes";
@@ -41,12 +41,11 @@ export default function Hero() {
 
       <div className="relative mx-auto max-w-[1400px] px-6 lg:px-12">
         <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-          {/* The aircraft — descends into frame once, then keeps station. */}
-          <div className="drone-enter relative mb-2 sm:mb-4">
-            <div className="drone-bob">
-              <DroneFigure variant="hero" className="w-36 sm:w-48 lg:w-56" />
-            </div>
-          </div>
+          {/* The aircraft — a real 3D product render: enters once, keeps
+              station, follows the pointer within a limited range. Fully
+              decorative (aria-hidden, pointer-events:none) and replaced by
+              the static line-art figure if WebGL is unavailable. */}
+          <Drone3D className="mb-2 sm:mb-4" />
 
           <Reveal>
             <p className="mx-auto mt-2 max-w-md text-[13px] leading-relaxed text-white/55 sm:text-[14px]">
