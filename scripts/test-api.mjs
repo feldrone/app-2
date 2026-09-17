@@ -184,6 +184,28 @@ try {
   });
   check("R2: application/json with charset accepted (201, not 415)", ctCharset.status === 201, "got " + ctCharset.status);
 
+  // 11b. Email-format regression: the validation regex must accept any
+  // well-formed address — including ones containing the letter "s", which a
+  // double-escaped character class ([^\\s@]) silently rejected in production.
+  const emailWithS = await fetch(BASE3 + "/api/quote", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "X-Forwarded-For": "10.8.8.9" },
+    body: JSON.stringify({ ...VALID, email: "sonia.messaoud@gmail.com" }),
+  });
+  check(
+    "email containing \"s\" is accepted (201, not 400 email-invalid)",
+    emailWithS.status === 201,
+    "got " + emailWithS.status,
+  );
+  const emailMalformed = await post3("/api/quote", { ...VALID, email: "not-an-email" }, { "X-Forwarded-For": "10.8.8.10" });
+  const emailMalformedJson = await emailMalformed.json();
+  check(
+    "malformed email still rejected (400 + email field)",
+    emailMalformed.status === 400 && Boolean(emailMalformedJson.fields?.email),
+    "got " + emailMalformed.status + " " + JSON.stringify(emailMalformedJson.fields ?? {}),
+  );
+
+
   // 12. R7: body-size protection on Content-Length, pre-parsed and the
   // 4 KB admin PATCH cap.
   const clRejected = await new Promise((resolve) => {
