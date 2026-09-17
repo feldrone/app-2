@@ -123,8 +123,8 @@ export default function Header() {
         aria-controls="services-menu"
         onClick={() => setServicesOpen((v) => !v)}
         className={cn(
-          "relative inline-flex items-center gap-1.5 py-1 text-[13px] font-medium tracking-wide transition-colors hover:text-navy-900",
-          isActive(PATHS.services) ? "text-navy-900" : "text-ink-soft",
+          "relative inline-flex items-center gap-1.5 whitespace-nowrap py-1 text-[14px] font-medium tracking-wide transition-colors hover:text-navy-900",
+          isActive(PATHS.services) ? "text-navy-900" : "text-iron",
         )}
       >
         {dict.nav.links.find((l) => l.href === PATHS.services)?.label ?? dict.routes.common.services}
@@ -141,15 +141,15 @@ export default function Header() {
         id="services-menu"
         aria-label={dict.nav.servicesMenu}
         className={cn(
-          "absolute start-0 top-full z-50 mt-3 w-[19rem] border border-line bg-white py-2 shadow-[0_28px_56px_-34px_rgba(14,31,48,0.5)]",
+          "absolute start-0 top-full z-50 mt-3 w-[19rem] rounded-[4px] border border-fog bg-white py-2 shadow-[var(--shadow-float)]",
           servicesOpen ? "block" : "hidden",
         )}
       >
         {serviceItems.map((item, i) => (
-          <li key={item.to} className={cn(i > 0 && "border-t border-line/70")}>
+          <li key={item.to} className={cn(i > 0 && "border-t border-fog")}>
             <Link
               to={item.to}
-              className="block px-5 py-3 text-[13px] leading-snug text-ink transition-colors hover:bg-paper hover:text-navy-900"
+              className="block px-5 py-3 text-[14px] leading-snug text-graphite transition-colors hover:bg-fog hover:text-navy-900"
             >
               {item.label}
             </Link>
@@ -158,7 +158,7 @@ export default function Header() {
         <li className="border-t border-line">
           <Link
             to={PATHS.services}
-            className="flex items-center justify-between gap-3 px-5 py-3 text-[12px] font-semibold tracking-wide text-navy-900 uppercase transition-colors hover:bg-paper"
+            className="flex items-center justify-between gap-3 px-5 py-3 text-[12px] font-semibold tracking-wide text-navy-900 uppercase transition-colors hover:bg-fog"
           >
             {dict.routes.common.services}
             <ArrowRight size={13} className="rtl:rotate-180" aria-hidden="true" />
@@ -187,18 +187,18 @@ export default function Header() {
               to={link.href}
               onClick={() => setOpen(false)}
               aria-current={isActive(link.href) ? "page" : undefined}
-              className="block border-b border-line py-4.5 text-[17px] font-medium text-ink"
+              className="block border-b border-fog py-4.5 text-[16px] font-medium text-iron"
             >
               {link.label}
             </Link>
             {link.href === PATHS.services && (
-              <ul className="border-b border-line bg-paper/60">
+              <ul className="border-b border-fog bg-fog/60">
                 {serviceItems.map((item) => (
                   <li key={item.to}>
                     <Link
                       to={item.to}
                       onClick={() => setOpen(false)}
-                      className="block px-4 py-3 text-[14px] text-ink-soft transition-colors hover:text-navy-900"
+                      className="block px-4 py-3 text-[14px] text-graphite transition-colors hover:text-navy-900"
                     >
                       {item.label}
                     </Link>
@@ -209,7 +209,7 @@ export default function Header() {
           </div>
         ))}
       </nav>
-      <div className="mt-auto border-t border-line px-6 py-6">
+      <div className="mt-auto border-t border-fog px-6 py-6">
         {/* From lg up the header keeps a visible selector, so the sheet does not
             repeat it — one control, always in the same place. */}
         <div className="lg:hidden">
@@ -218,7 +218,7 @@ export default function Header() {
         <Link
           to={PATHS.devis}
           onClick={() => setOpen(false)}
-          className="flex items-center justify-center gap-2 bg-navy-900 px-5 py-4.5 text-[15px] font-medium tracking-wide text-white transition-colors hover:bg-navy-800"
+          className="flex items-center justify-center gap-2 rounded-full bg-signal-500 px-5 py-4 text-[15px] font-medium tracking-wide text-navy-950 transition-[background-color] hover:bg-signal-600"
         >
           {dict.nav.cta}
           <ArrowRight size={15} className="rtl:rotate-180" aria-hidden="true" />
@@ -231,10 +231,10 @@ export default function Header() {
     <>
       <header
         className={cn(
-          "fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300",
+          "fixed inset-x-0 top-0 z-50 border-b transition-[border-color,background-color,box-shadow] duration-300",
           scrolled || open
-            ? "border-line bg-white/95 backdrop-blur-sm"
-            : "border-transparent bg-paper/80 backdrop-blur-[2px]",
+            ? "border-fog bg-white shadow-[var(--shadow-nav)]"
+            : "border-transparent bg-white/92 backdrop-blur-[2px]",
         )}
       >
         <a
@@ -252,7 +252,7 @@ export default function Header() {
           <nav aria-label={dict.nav.aria} className="hidden items-center gap-4 xl:flex 2xl:gap-8">
             {dict.nav.links.map((link) => {
               if (link.href === PATHS.services) return <div key={link.href}>{servicesMenu}</div>;
-              const routeLink = !link.href.includes("#") || link.href.startsWith("/");
+              const routeLink = !link.href.includes("#");
               const anchorActive = path === PATHS.home && !routeLink && activeAnchor === link.href;
               const current = routeLink && link.href !== PATHS.home ? isActive(link.href) : anchorActive;
               return (
@@ -261,8 +261,8 @@ export default function Header() {
                   to={link.href}
                   aria-current={current ? "page" : undefined}
                   className={cn(
-                    "relative py-1 text-[13px] font-medium tracking-wide text-ink-soft transition-colors hover:text-navy-900",
-                    current && "text-navy-900",
+                    "relative whitespace-nowrap py-1 text-[14px] font-medium tracking-wide text-iron transition-colors hover:text-navy-900",
+                    current && "font-semibold text-navy-900",
                   )}
                 >
                   {link.label}
@@ -282,7 +282,7 @@ export default function Header() {
             <LanguageSwitcher />
             <Link
               to={PATHS.devis}
-              className="group inline-flex items-center gap-2 whitespace-nowrap bg-navy-900 px-4 py-2.5 text-[12.5px] font-medium tracking-wide text-white shadow-[0_12px_24px_-14px_rgba(14,31,48,0.7)] transition-[background-color,transform] duration-200 hover:bg-navy-800 active:translate-y-px 2xl:px-5 2xl:text-[13px]"
+              className="group inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-signal-500 px-5 py-2.5 text-[13px] font-medium tracking-wide text-navy-950 transition-[background-color,transform] duration-200 hover:bg-signal-600 active:translate-y-px 2xl:text-[13.5px]"
             >
               {dict.nav.cta}
               <ArrowRight

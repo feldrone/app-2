@@ -34,11 +34,11 @@ export default function DevisPage() {
         title={t.title}
         lede={t.lede}
         crumbs={[{ label: t.title }]}
-        className="bg-paper"
+        className="bg-fog"
         tone="paper"
       />
 
-      <section aria-labelledby="devis-form-heading" className="bg-paper pb-20 lg:pb-28">
+      <section aria-labelledby="devis-form-heading" className="bg-fog pb-20 lg:pb-28">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
           <div className="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-10">
             <div className="lg:col-span-7">
@@ -52,22 +52,22 @@ export default function DevisPage() {
 
             <aside className="lg:col-span-4 lg:col-start-9">
               <Reveal>
-                <div className="border border-line bg-white p-8">
+                <div className="rounded-[4px] bg-white p-8">
                   <h2 className="font-display text-[1.2rem] leading-snug font-medium tracking-tight text-navy-900">
                     {t.asideTitle}
                   </h2>
-                  <p className="mt-4 text-[13.5px] leading-relaxed text-ink-soft">{t.asideBody}</p>
+                  <p className="mt-4 text-[13.5px] leading-relaxed text-graphite">{t.asideBody}</p>
                   <div className="mt-7 flex flex-col gap-3">
                     <a
                       href={`tel:${company.phoneHref}`}
-                      className="inline-flex items-center justify-center gap-2 border border-line-strong px-5 py-3 text-[13px] font-medium text-navy-900 transition-colors hover:border-navy-900 hover:bg-paper"
+                      className="inline-flex items-center justify-center gap-2 rounded-full border border-slate px-5 py-3 text-[13px] font-medium text-iron transition-colors hover:border-navy-900 hover:text-navy-900"
                     >
                       <Phone size={15} aria-hidden="true" />
                       <span dir="ltr" className="inline-block">{company.phone}</span>
                     </a>
                     <a
                       href={`mailto:${company.email}`}
-                      className="inline-flex items-center justify-center gap-2 border border-line-strong px-5 py-3 text-[13px] font-medium text-navy-900 transition-colors hover:border-navy-900 hover:bg-paper"
+                      className="inline-flex items-center justify-center gap-2 rounded-full border border-slate px-5 py-3 text-[13px] font-medium text-iron transition-colors hover:border-navy-900 hover:text-navy-900"
                     >
                       <Mail size={15} aria-hidden="true" />
                       <span className="break-all">{company.email}</span>
@@ -76,27 +76,27 @@ export default function DevisPage() {
                       href={whatsappHref}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 border border-line-strong px-5 py-3 text-[13px] font-medium text-navy-900 transition-colors hover:border-navy-900 hover:bg-paper"
+                      className="inline-flex items-center justify-center gap-2 rounded-full border border-slate px-5 py-3 text-[13px] font-medium text-iron transition-colors hover:border-navy-900 hover:text-navy-900"
                     >
                       <MessageCircle size={15} aria-hidden="true" />
                       WhatsApp
                     </a>
                   </div>
-                  <p className="mt-6 text-[12px] leading-relaxed text-mute">{t.asideNote}</p>
+                  <p className="mt-6 text-[12px] leading-relaxed text-slate">{t.asideNote}</p>
                 </div>
               </Reveal>
 
               <Reveal delay={80}>
-                <ol className="mt-10 border-t border-line pt-8" role="list">
-                  <p className="text-[11px] font-medium tracking-[0.16em] text-mute uppercase">{t.processTitle}</p>
+                <ol className="mt-10 border-t border-line-fog pt-8" role="list">
+                  <p className="text-[11px] font-medium tracking-[0.16em] text-slate uppercase">{t.processTitle}</p>
                   {t.process.map((step, i) => (
                     <li key={step.title} className="mt-6 flex gap-5">
-                      <span className="w-6 shrink-0 font-display text-[12px] font-semibold text-signal-600 tabular-nums">
+                      <span className="w-6 shrink-0 font-display text-[12px] font-light text-signal-600 tabular-nums">
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       <span>
                         <span className="block text-[14px] font-semibold tracking-tight text-navy-900">{step.title}</span>
-                        <span className="mt-1.5 block text-[13.5px] leading-relaxed text-ink-soft">{step.body}</span>
+                        <span className="mt-1.5 block text-[13.5px] leading-relaxed text-graphite">{step.body}</span>
                       </span>
                     </li>
                   ))}
@@ -105,7 +105,7 @@ export default function DevisPage() {
 
               <Link
                 to={PATHS.services}
-                className="mt-10 inline-flex items-center gap-2 text-[13px] font-medium tracking-wide text-navy-900 uppercase"
+                className="mt-10 inline-flex items-center gap-2 text-[12px] font-semibold tracking-wide text-signal-700 uppercase"
               >
                 {t.backToServices}
                 <ArrowRight size={14} className="rtl:rotate-180" aria-hidden="true" />

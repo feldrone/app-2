@@ -35,14 +35,14 @@ export default function LanguageSwitcher({
         aria-labelledby="language-selector-label"
         dir="ltr"
         className={cn(
-          "flex items-stretch border border-line-strong bg-white",
-          sheet ? "w-full" : "shadow-[0_1px_0_rgba(14,31,48,0.02)]",
+          "flex items-center rounded-full border border-slate bg-white p-0.5",
+          sheet ? "w-full max-w-xs" : "",
         )}
       >
         {LOCALES.map((code, i) => {
           const active = code === locale;
           return (
-            <li key={code} className={cn("flex", i > 0 && "border-l border-line-strong")}>
+            <li key={code} className={cn("flex", i > 0 && "border-l border-fog")}>
               <button
                 type="button"
                 lang={code}
@@ -52,11 +52,11 @@ export default function LanguageSwitcher({
                   onSelect?.();
                 }}
                 className={cn(
-                  "flex items-center justify-center font-medium tracking-[0.08em] transition-colors duration-200",
-                  sheet ? "flex-1 px-4 py-3.5 text-[14px]" : "px-2.5 py-1.5 text-[11.5px]",
+                  "flex items-center justify-center rounded-full font-medium tracking-[0.08em] transition-colors duration-200",
+                  sheet ? "flex-1 px-4 py-2.5 text-[14px]" : "px-3 py-1.5 text-[11.5px]",
                   active
                     ? "bg-navy-900 text-white"
-                    : "text-ink-soft hover:bg-paper hover:text-navy-900",
+                    : "text-graphite hover:bg-fog hover:text-navy-900",
                 )}
               >
                 {code.toUpperCase()}

@@ -23,7 +23,7 @@ export default function Faq() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" aria-labelledby="faq-heading" className="bg-white py-32 lg:py-44">
+    <section id="faq" aria-labelledby="faq-heading" className="bg-fog py-28 lg:py-40">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
         <div className="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-4">
@@ -37,7 +37,7 @@ export default function Faq() {
               <button
                 type="button"
                 onClick={() => requestQuote("Autre")}
-                className="mt-10 inline-flex items-center gap-2 border border-line-strong px-5 py-3 text-[13px] font-medium tracking-wide text-navy-900 transition-[border-color,background-color,transform] duration-200 hover:border-navy-900 hover:bg-paper active:translate-y-px"
+                className="mt-10 inline-flex items-center gap-2 rounded-full border border-slate px-6 py-3 text-[13.5px] font-medium tracking-wide text-iron transition-[border-color,background-color,transform] duration-200 hover:border-navy-900 hover:text-navy-900 active:translate-y-px"
               >
                 {t.askCta}
               </button>
@@ -45,14 +45,14 @@ export default function Faq() {
           </div>
 
           <div className="lg:col-span-7 lg:col-start-6">
-            <dl className="border-t border-line">
+            <dl className="border-t border-line-fog">
               {t.items.map((item, i) => {
                 const isOpen = open === i;
                 const btnId = `${uid}-q-${i}`;
                 const panelId = `${uid}-a-${i}`;
                 return (
                   <Reveal key={item.q} delay={i * 40}>
-                    <div className="border-b border-line">
+                    <div className="border-b border-fog">
                       <dt>
                         <button
                           id={btnId}
@@ -64,7 +64,7 @@ export default function Faq() {
                         >
                           <span
                             className={cn(
-                              "text-[15.5px] leading-snug font-semibold tracking-tight transition-colors duration-200",
+                              "text-[15.5px] leading-snug font-semibold tracking-[-0.01em] transition-colors duration-200",
                               isOpen ? "text-navy-900" : "text-ink group-hover:text-navy-900",
                             )}
                           >
@@ -72,10 +72,10 @@ export default function Faq() {
                           </span>
                           <span
                             className={cn(
-                              "relative mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center border transition-[background-color,border-color,color] duration-200",
+                              "relative mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border transition-[background-color,border-color,color] duration-200",
                               isOpen
                                 ? "border-navy-900 bg-navy-900 text-white"
-                                : "border-line-strong text-navy-900 group-hover:border-navy-900",
+                                : "border-slate text-navy-900 group-hover:border-navy-900",
                             )}
                             aria-hidden="true"
                           >
@@ -91,7 +91,7 @@ export default function Faq() {
                         )}
                       >
                         <div className="overflow-hidden">
-                          <p className="max-w-2xl pb-7 text-[14.5px] leading-relaxed text-ink-soft">{item.a}</p>
+                          <p className="max-w-2xl pb-7 text-[14.5px] leading-relaxed text-graphite">{item.a}</p>
                         </div>
                       </dd>
                     </div>

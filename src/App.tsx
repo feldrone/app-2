@@ -3,6 +3,7 @@ import { RouterProvider, useRouter } from "./router";
 import Header from "./components/Header";
 import LegalNotice from "./components/LegalNotice";
 import Footer from "./components/Footer";
+import FloatingActions from "./components/FloatingActions";
 import HomePage from "./pages/HomePage";
 import ServicesIndexPage from "./pages/ServicesIndexPage";
 import ServiceDetailPage from "./pages/ServiceDetailPage";
@@ -49,13 +50,14 @@ function RouteView() {
 function Shell() {
   const { dir, locale } = useI18n();
   return (
-    <div dir={dir} data-locale={locale} className="min-h-screen bg-paper">
+    <div dir={dir} data-locale={locale} className="min-h-screen bg-fog">
       <Header />
       <main id="main" tabIndex={-1} className="outline-none">
         <RouteView />
       </main>
       <LegalNotice />
       <Footer />
+      <FloatingActions />
     </div>
   );
 }

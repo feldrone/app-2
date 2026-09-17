@@ -41,7 +41,7 @@
       content="https://images.pexels.com/photos/28467369/pexels-photo-28467369.jpeg?auto=compress&cs=tinysrgb&w=1200&h=630&fit=crop"
     />
 
-    <meta name="theme-color" content="#fbfaf8" />
+    <meta name="theme-color" content="#ededed" />
 
     <!-- Favicon — V12 symbol (public/favicon.svg). The URL is resolved from the
          served document's own path instead of a fixed relative href, because the
@@ -68,21 +68,16 @@
     <link rel="preconnect" href="https://images.pexels.com" />
     <!-- One superfamily, three languages: IBM Plex Sans (Latin) + IBM Plex Sans
          Arabic (العربية). Both are loaded up front so switching language never
-         reflows type or falls back silently. -->
+         reflows type or falls back silently. Weight 300 carries the light
+         display cuts of the editorial type system. -->
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
 
-    <!-- LCP boost -->
-    <link
-      rel="preload"
-      as="image"
-      fetchpriority="high"
-      href="https://images.pexels.com/photos/28467369/pexels-photo-28467369.jpeg?auto=compress&cs=tinysrgb&w=1600&h=2000&fit=crop"
-      imagesrcset="https://images.pexels.com/photos/28467369/pexels-photo-28467369.jpeg?auto=compress&cs=tinysrgb&w=800&h=1000&fit=crop 800w, https://images.pexels.com/photos/28467369/pexels-photo-28467369.jpeg?auto=compress&cs=tinysrgb&w=1600&h=2000&fit=crop 1600w"
-      imagesizes="(max-width: 1023px) 100vw, 44vw"
-    />
+    <!-- No image preload: the first viewport is the dark drone stage (inline
+         SVG + type), so the LCP element is text. Photography starts below the
+         fold (lazy) — preloading any crop would only waste bytes. -->
 
     <!-- Structured data — factual only, no invented ratings/hours/coverage -->
     <script type="application/ld+json">

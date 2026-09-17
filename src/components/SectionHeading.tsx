@@ -3,9 +3,11 @@ import Reveal from "./Reveal";
 import { cn } from "../utils/cn";
 
 /**
- * Shared editorial section heading: thin rule + letter-spaced eyebrow,
- * serif display headline, optional lede paragraph. `tone="navy"` inverts
- * it for dark bands so every section header in the system stays cohesive.
+ * Shared editorial section heading: signal tick + letter-spaced eyebrow,
+ * light-weight display headline (32px/300, -0.02em), optional lede.
+ * `tone="navy"` inverts it for the dark stage so every section header in the
+ * system stays cohesive. Headings keep the brand navy as their ink; helpers
+ * sit on the graphite/slate ramp of the light canvas.
  */
 export default function SectionHeading({
   id,
@@ -28,8 +30,8 @@ export default function SectionHeading({
     <Reveal className={cn("max-w-2xl", className)}>
       <p
         className={cn(
-          "mb-5 flex flex-wrap items-center gap-3 text-[11px] font-medium uppercase tracking-[0.24em] sm:text-[12px]",
-          tone === "navy" ? "text-signal-500" : "text-mute",
+          "mb-5 flex flex-wrap items-center gap-3 text-[11px] font-medium uppercase tracking-[0.2em] sm:text-[12px]",
+          tone === "navy" ? "text-signal-500" : "text-slate",
         )}
       >
         <span
@@ -41,7 +43,7 @@ export default function SectionHeading({
       <h2
         id={id}
         className={cn(
-          "font-display text-[1.9rem] leading-[1.12] font-medium tracking-[-0.01em] sm:text-[2.4rem]",
+          "font-display text-[1.6rem] text-balance leading-[1.22] font-light tracking-[-0.02em] sm:text-[2rem]",
           tone === "navy" ? "text-white" : "text-navy-900",
         )}
       >
@@ -50,8 +52,8 @@ export default function SectionHeading({
       {lede && (
         <p
           className={cn(
-            "mt-6 text-[16px] leading-relaxed",
-            tone === "navy" ? "text-white/70" : "text-ink-soft",
+            "mt-5 text-[16px] leading-relaxed",
+            tone === "navy" ? "text-white/65" : "text-graphite",
           )}
         >
           {lede}

@@ -31,6 +31,24 @@
   --color-line: #e4e2dd;
   --color-line-strong: #d5d2ca;
 
+  /* Editorial canvas register (DESIGN.md mapping, 2026-09) — the page canvas
+     sits one tone below the card surfaces so white cards separate by
+     brightness alone: no borders, no shadows. Cool-toned to let the drone
+     photography carry the weight. */
+  --color-fog: #ededed;
+  --color-line-fog: #dcdcdc;
+
+  /* Dark stage register — the hero void and dark panels. Near-black with the
+     brand's aviation navy breath instead of flat #000. */
+  --color-void: #070c12;
+
+  /* Editorial text ramp — the workhorse grays of the light canvas. Headings
+     stay on the brand navy; these carry nav, body, helpers and meta. */
+  --color-iron: #303233;
+  --color-graphite: #595959;
+  --color-slate: #6c7073;
+  --color-ash: #8c8c8c;
+
   /* Brand — deep aviation navy + restrained warm signal accent */
   --color-navy-950: #0a1622;
   --color-navy-900: #0e1f30;
@@ -39,10 +57,19 @@
   --color-signal-600: #b4823c;
   --color-signal-500: #c6934a;
   --color-signal-100: #f4ead9;
+  /* Text-safe bronze — in-text links and small emphasis on light surfaces
+     (signal-500/600 are reserved for surfaces and decorative ticks; this tier
+     keeps AA contrast on fog/white). */
+  --color-signal-700: #8a5c1e;
 
   /* States */
   --color-error: #a13b2c;
   --color-success: #1d6b3f;
+
+  /* Elevation — shadows are reserved for the sticky nav and floating overlays
+     only. Cards and panels separate from the canvas by brightness alone. */
+  --shadow-nav: 0 8px 16px rgba(0, 0, 0, 0.06);
+  --shadow-float: 0 16px 16px rgba(0, 0, 0, 0.1);
 }
 
 /* Fixed-header height is a single source of truth: header rail, hero
@@ -94,10 +121,10 @@ footer a {
   transition: color 0.2s ease, opacity 0.2s ease;
 }
 footer a:hover {
-  color: #8ab4ff;
+  color: #e0bc7e;
 }
 footer a:focus-visible {
-  color: #8ab4ff;
+  color: #e0bc7e;
   outline: 2px solid currentColor;
   outline-offset: 3px;
 }
@@ -187,6 +214,81 @@ html[dir="rtl"] figcaption {
   outline-offset: 3px;
 }
 
+/* ── Drone motion system ───────────────────────────────────────────────────
+   The animated UAVs are pure transform/opacity CSS on inline SVG groups —
+   no JS loop, no layout cost. Three registers, all decorative (aria-hidden):
+   · .drone-enter — the hero reveal: the aircraft descends out of the void
+   · .drone-bob   — the continuous station-keeping hover, 8s gentle cycle
+   · .rotor       — rotor groups spin around their own centre (fill-box)
+   · .drone-drift — a slow crossing flight inside the photographic banner
+   `prefers-reduced-motion` parks every register: rotors hold still, the
+   drift disappears and the hero drone renders as a static edge-lit figure
+   (see the global reduced-motion block and the explicit overrides below). */
+@keyframes drone-enter {
+  from {
+    opacity: 0;
+    transform: translateY(46px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes drone-bob {
+  0%,
+  100% {
+    transform: translateY(-5px);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+@keyframes rotor-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes drone-drift {
+  from {
+    transform: translateX(-8rem) rotate(-6deg);
+  }
+  to {
+    transform: translateX(100vw) rotate(-6deg);
+  }
+}
+.drone-enter {
+  animation: drone-enter 1.2s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+.drone-bob {
+  animation: drone-bob 8s ease-in-out 1.2s infinite;
+}
+.rotor {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rotor-spin 1.6s linear infinite;
+}
+.rotor-slow {
+  animation-duration: 2.2s;
+}
+.drone-drift {
+  animation: drone-drift 52s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rotor,
+  .rotor-slow {
+    animation: none;
+  }
+  .drone-drift {
+    display: none;
+  }
+}
+
+/* Focus on the dark stage: the navy ring vanishes on the void, so dark
+   sections re-map the focus outline to white. */
+.dark-stage :focus-visible {
+  outline-color: #ffffff;
+}
+
 /* ------------------------------------------------------------------ */
 /* Print — clean document rendering of the full page                     */
 /* ------------------------------------------------------------------ */
@@ -206,7 +308,8 @@ html[dir="rtl"] figcaption {
   header,
   .no-print,
   iframe,
-  img {
+  img,
+  [data-drone] {
     display: none !important;
   }
   footer {

@@ -74,6 +74,18 @@ export const heroImage: Img = photo({
   sizes: "(max-width: 1023px) 100vw, 44vw",
 });
 
+/**
+ * Full-bleed photographic banner (the same master shot as the hero subject,
+ * cropped 21:9 for the edge-to-edge strip). Referenced by the Demonstration
+ * section's overlaid-headline banner.
+ */
+export const bannerImage: Img = photo({
+  id: 28467369,
+  alt: "Télépilote en tenue opérationnelle contrôlant un drone professionnel face à un parc éolien",
+  ratio: [21, 9],
+  sizes: "100vw",
+});
+
 export const controlImage: Img = photo({
   id: 8981852,
   alt: "Mains d'un télépilote tenant la radiocommande d'un drone professionnel, smartphone de retour vidéo fixé sur le support",

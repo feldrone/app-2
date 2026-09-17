@@ -16,10 +16,10 @@ import { useDict } from "../i18n";
 function Term({ term, children }: { term: string; children: React.ReactNode }) {
   return (
     <div>
-      <dt className="text-[10.5px] font-medium uppercase tracking-[0.14em] text-mute">
+      <dt className="text-[10.5px] font-medium uppercase tracking-[0.14em] text-slate">
         {term}
       </dt>
-      <dd className="mt-1 text-[13.5px] leading-relaxed text-ink-soft">{children}</dd>
+      <dd className="mt-1 text-[13.5px] leading-relaxed text-graphite">{children}</dd>
     </div>
   );
 }
@@ -33,7 +33,7 @@ export default function LegalNotice() {
     <section
       id="mentions-legales"
       aria-labelledby="legal-heading"
-      className="scroll-mt-24 border-t border-line bg-paper py-14 lg:py-16"
+      className="scroll-mt-24 border-t border-line-fog bg-fog py-14 lg:py-16"
     >
       <div className="mx-auto max-w-5xl px-6 lg:px-12">
         <h2
@@ -54,16 +54,16 @@ export default function LegalNotice() {
           <Term term={t.seat}>{dict.place.seatLine}</Term>
           {company.gerant && <Term term={t.gerant}>{company.gerant}</Term>}
           <Term term={t.contact}>
-            <a href={`mailto:${company.email}`} className="transition-colors hover:text-navy-900">
+            <a href={`mailto:${company.email}`} className="text-signal-700 underline decoration-signal-600/50 underline-offset-4 transition-colors hover:text-navy-900">
               {company.email}
             </a>
             <br />
-            <a href={`tel:${company.phoneHref}`} className="transition-colors hover:text-navy-900">
+            <a href={`tel:${company.phoneHref}`} className="text-signal-700 underline decoration-signal-600/50 underline-offset-4 transition-colors hover:text-navy-900">
               <span dir="ltr" className="inline-block">{company.phone}</span>
             </a>
           </Term>
           <div className="sm:col-span-2 lg:col-span-3">
-            <dt className="text-[10.5px] font-medium uppercase tracking-[0.14em] text-mute">
+            <dt className="text-[10.5px] font-medium uppercase tracking-[0.14em] text-slate">
               {t.activities}
             </dt>
             <dd className="mt-1.5 text-[13.5px] leading-relaxed text-ink-soft">

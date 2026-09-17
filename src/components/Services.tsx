@@ -26,7 +26,7 @@ export default function Services() {
   const secondary = t.list.filter((s) => s.priority === "secondary");
 
   return (
-    <section id="services" aria-labelledby="services-heading" className="bg-paper py-28 lg:py-36">
+    <section id="services" aria-labelledby="services-heading" className="bg-fog py-28 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
         <SectionHeading
           id="services-heading"
@@ -55,7 +55,7 @@ export default function Services() {
         </div>
 
         <Reveal delay={120}>
-          <p className="mt-10 max-w-3xl text-[12.5px] leading-relaxed text-mute">{t.note}</p>
+          <p className="mt-10 max-w-3xl text-[13px] leading-relaxed text-graphite">{t.note}</p>
         </Reveal>
       </div>
     </section>
@@ -76,50 +76,48 @@ function ServiceCard({
 
   return (
     <article
-      className={cn(
-        "group flex h-full flex-col overflow-hidden border bg-white transition-[box-shadow,transform,border-color] duration-300 ease-out",
-        primary
-          ? "border-line hover:-translate-y-1 hover:border-line-strong hover:shadow-[0_24px_48px_-28px_rgba(14,31,48,0.35)]"
-          : "border-line/80 hover:border-line-strong",
-      )}
+      className="flex h-full flex-col overflow-hidden rounded-[4px] bg-white"
     >
-      <div className="relative aspect-[16/10] shrink-0 overflow-hidden bg-navy-900">
-        <img
-          src={service.image.src}
-          srcSet={service.image.srcSet}
-          sizes="(max-width: 767px) 92vw, (max-width: 1279px) 45vw, 29vw"
-          width={service.image.width}
-          height={service.image.height}
-          alt={dict.media.services[service.slug] ?? service.image.alt}
-          loading="lazy"
-          decoding="async"
-          className="h-full w-full scale-[1.001] object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
-        />
-        <span className="absolute top-4 start-4 bg-white/95 px-2.5 py-1 text-[10.5px] font-semibold tracking-[0.18em] text-navy-900 uppercase">
-          <span dir="ltr">{service.index}</span> — {service.tag}
-        </span>
-        {primary && (
-          <span className="absolute top-4 end-4 bg-signal-600 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-white">
-            {t.priorityBadge}
-          </span>
-        )}
-      </div>
-
-      <div className="flex flex-1 flex-col p-6 sm:p-7 lg:p-7">
+      <div className="flex flex-1 flex-col p-6 lg:p-7">
+        <div className="flex flex-wrap items-center gap-3">
+          <p className="text-[12px] font-medium uppercase tracking-[0.14em] text-slate">
+            <span dir="ltr">{service.index}</span> — {service.tag}
+          </p>
+          {primary && (
+            <span className="rounded-full border border-signal-600 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-signal-700">
+              {t.priorityBadge}
+            </span>
+          )}
+        </div>
         <h3
           className={cn(
-            "font-display leading-tight font-medium tracking-tight text-navy-900",
+            "font-display mt-2.5 leading-[1.25] font-semibold tracking-[-0.02em] text-navy-900",
             primary ? "text-[1.35rem]" : "text-[1.15rem]",
           )}
         >
           {service.title}
         </h3>
-        <p className="mt-2.5 text-[13.5px] leading-relaxed text-ink-soft">{service.intro}</p>
+        <p className="mt-2.5 text-[14px] leading-relaxed text-graphite">{service.intro}</p>
 
-        <ul className="mt-4 space-y-1.5" aria-label={t.coverageLabel(service.title)}>
+        {/* Centered product image — brightness against the card, no frame */}
+        <div className="relative mt-5 aspect-[16/10] w-full shrink-0 overflow-hidden rounded-[4px] bg-fog">
+          <img
+            src={service.image.src}
+            srcSet={service.image.srcSet}
+            sizes="(max-width: 767px) 92vw, (max-width: 1279px) 45vw, 29vw"
+            width={service.image.width}
+            height={service.image.height}
+            alt={dict.media.services[service.slug] ?? service.image.alt}
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full object-cover"
+          />
+        </div>
+
+        <ul className="mt-5 space-y-1.5" aria-label={t.coverageLabel(service.title)}>
           {service.points.map((point) => (
-            <li key={point} className="flex items-baseline gap-2.5 text-[12.5px] leading-snug text-ink">
-              <span className="mt-[5px] h-1 w-1 shrink-0 rounded-full bg-signal-600" aria-hidden="true" />
+            <li key={point} className="flex items-baseline gap-2.5 text-[13px] leading-snug text-iron">
+              <span className="mt-[6px] h-1 w-1 shrink-0 rounded-full bg-signal-600" aria-hidden="true" />
               {point}
             </li>
           ))}
@@ -130,7 +128,7 @@ function ServiceCard({
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls={panelId}
-          className="mt-5 inline-flex min-h-10 w-fit items-center gap-1.5 border-b border-transparent py-1 text-[11.5px] font-semibold tracking-wide text-navy-700 uppercase transition-colors hover:border-navy-700 hover:text-navy-900"
+          className="mt-5 inline-flex min-h-10 w-fit items-center gap-1.5 border-b border-transparent py-1 text-[12px] font-semibold tracking-wide text-graphite uppercase transition-colors hover:text-navy-900"
         >
           {t.stepsToggle}
           <ChevronDown size={12} className={cn("transition-transform duration-300", open && "rotate-180")} aria-hidden="true" />
@@ -144,7 +142,7 @@ function ServiceCard({
         >
           <ol className="overflow-hidden" role="list">
             {service.steps.map((step, idx) => (
-              <li key={step} className="flex gap-3 py-[4px] text-[12.5px] leading-snug text-ink-soft first:pt-0 last:pb-0">
+              <li key={step} className="flex gap-3 py-[4px] text-[13px] leading-snug text-graphite first:pt-0 last:pb-0">
                 <span className="w-4 shrink-0 font-display text-[11px] font-semibold text-signal-600 tabular-nums">
                   {idx + 1}
                 </span>
@@ -158,7 +156,7 @@ function ServiceCard({
           {routeForLegacyService(service.slug) && (
             <Link
               to={routeForLegacyService(service.slug) as string}
-              className="group/link inline-flex items-center gap-2 text-[12px] font-semibold tracking-wide text-navy-900 uppercase"
+              className="group/link inline-flex items-center gap-2 text-[12px] font-semibold tracking-wide text-signal-700 uppercase"
             >
               {dict.routes.common.detailCta}
               <ArrowRight
@@ -172,10 +170,10 @@ function ServiceCard({
             type="button"
             onClick={() => requestQuote(service.apiValue)}
             className={cn(
-              "ms-auto inline-flex items-center justify-center gap-2 px-5 py-3 text-[12.5px] font-medium tracking-wide transition-[background-color,transform,box-shadow] duration-200 active:translate-y-px",
+              "ms-auto inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-medium tracking-wide transition-[background-color,border-color,color] duration-200 active:translate-y-px",
               primary
-                ? "bg-navy-900 text-white shadow-[0_12px_24px_-16px_rgba(14,31,48,0.6)] hover:bg-navy-800"
-                : "border border-line-strong bg-white text-navy-900 hover:border-navy-900 hover:bg-paper",
+                ? "bg-signal-500 text-navy-950 hover:bg-signal-600"
+                : "border border-slate bg-white text-iron hover:border-navy-900 hover:text-navy-900",
             )}
           >
             {service.cta.label}

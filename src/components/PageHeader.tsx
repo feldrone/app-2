@@ -31,15 +31,15 @@ export default function PageHeader({
 
   return (
     <header
+      data-tone={tone}
       className={cn(
-        "border-b border-line pt-[calc(var(--header-h)+3rem)] pb-14 lg:pt-[calc(var(--header-h)+4.5rem)] lg:pb-20",
-        tone === "light" ? "bg-white" : "bg-paper",
+        "border-b border-line-fog pt-[calc(var(--header-h)+3rem)] pb-14 lg:pt-[calc(var(--header-h)+4.5rem)] lg:pb-20 bg-fog",
         className,
       )}
     >
       <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
         <nav aria-label={dict.routes.common.breadcrumb} className="mb-8">
-          <ol className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[12px] text-mute">
+          <ol className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[12.5px] text-slate">
             <li>
               <Link to="/" className="transition-colors hover:text-navy-900">
                 {dict.routes.common.home}
@@ -47,7 +47,7 @@ export default function PageHeader({
             </li>
             {crumbs?.map((crumb) => (
               <li key={crumb.label} className="flex items-center gap-2.5">
-                <span aria-hidden="true" className="text-line-strong">
+                <span aria-hidden="true" className="text-ash">
                   /
                 </span>
                 {crumb.to ? (
@@ -55,7 +55,7 @@ export default function PageHeader({
                     {crumb.label}
                   </Link>
                 ) : (
-                  <span aria-current="page" className="text-ink">
+                  <span aria-current="page" className="text-iron">
                     {crumb.label}
                   </span>
                 )}
@@ -65,14 +65,14 @@ export default function PageHeader({
         </nav>
 
         <div className="max-w-4xl">
-          <p className="flex flex-wrap items-center gap-3 text-[11px] font-medium tracking-[0.24em] text-mute uppercase sm:text-[12px]">
+          <p className="flex flex-wrap items-center gap-3 text-[11px] font-medium tracking-[0.2em] text-slate uppercase sm:text-[12px]">
             <span className="h-px w-8 bg-signal-600" aria-hidden="true" />
             {eyebrow}
           </p>
-          <h1 className="mt-5 font-display text-[2rem] leading-[1.1] font-medium tracking-tight text-navy-900 sm:text-[2.6rem] lg:text-[3rem]">
+          <h1 className="mt-5 font-display text-[2rem] text-balance leading-[1.15] font-light tracking-[-0.03em] text-navy-900 sm:text-[2.6rem]">
             {title}
           </h1>
-          {lede && <p className="mt-6 max-w-3xl text-[15.5px] leading-relaxed text-ink-soft sm:text-[16.5px]">{lede}</p>}
+          {lede && <p className="mt-6 max-w-3xl text-[16px] leading-relaxed text-graphite">{lede}</p>}
           {children}
         </div>
       </div>

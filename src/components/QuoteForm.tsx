@@ -229,7 +229,7 @@ export default function QuoteForm() {
   });
 
   return (
-    <div ref={statusRef} id="quote-form" className="border border-line bg-white p-7 shadow-[0_32px_64px_-48px_rgba(14,31,48,0.35)] sm:p-10">
+    <div ref={statusRef} id="quote-form" className="rounded-[4px] bg-white p-7 sm:p-10">
       {status === "success" ? (
         <div role="status" className="flex flex-col items-start gap-4 py-6">
           <CheckCircle2 size={34} className="text-success" aria-hidden="true" />
@@ -253,7 +253,7 @@ export default function QuoteForm() {
           <button
             type="button"
             onClick={() => setStatus("idle")}
-            className="mt-2 inline-flex items-center gap-2 text-[13px] font-semibold tracking-wide text-navy-700 uppercase transition-colors hover:text-navy-900"
+            className="mt-2 inline-flex items-center gap-2 text-[13px] font-semibold tracking-wide text-signal-700 uppercase transition-colors hover:text-navy-900"
           >
             {t.form.success.again}
             <ArrowRight size={14} className="rtl:rotate-180" aria-hidden="true" />
@@ -268,7 +268,7 @@ export default function QuoteForm() {
             <TextField label={t.form.wilaya} required {...field("wilaya")} error={touched.wilaya ? errors.wilaya : undefined} autoComplete="address-level1" placeholder={t.form.wilayaPlaceholder} />
             <TextField label={t.form.email} {...field("email")} error={touched.email ? errors.email : undefined} type="email" inputMode="email" autoComplete="email" placeholder={t.form.emailPlaceholder} />
             <div>
-              <label htmlFor={idOf("service")} className="mb-2 block text-[13px] font-medium text-navy-900">
+              <label htmlFor={idOf("service")} className="mb-2 block text-[13px] font-medium text-iron">
                 {t.form.service} <span className="text-signal-600" aria-hidden="true">*</span>
               </label>
               <div className="relative">
@@ -276,16 +276,16 @@ export default function QuoteForm() {
                   {...field("service")}
                   value={values.service}
                   className={cn(
-                    "w-full appearance-none border-0 border-b bg-transparent px-0.5 py-3 pe-8 text-[14px] text-ink outline-none transition-colors focus:border-navy-900",
-                    touched.service && errors.service ? "border-error" : "border-line-strong",
-                    !values.service && "text-mute",
+                    "w-full appearance-none rounded-[4px] border bg-white px-4 py-3 pe-9 text-[14px] text-iron outline-none transition-colors focus:border-navy-900",
+                    touched.service && errors.service ? "border-error" : "border-slate",
+                    !values.service && "text-graphite",
                   )}
                 >
                   <option value="" disabled>
                     {t.form.servicePlaceholder}
                   </option>
                   {t.form.options.map((option) => (
-                    <option key={option.value} value={option.value} className="text-ink">
+                    <option key={option.value} value={option.value} className="text-iron">
                       {option.label}
                     </option>
                   ))}
@@ -296,7 +296,7 @@ export default function QuoteForm() {
             </div>
 
             <div className="sm:col-span-2">
-              <label htmlFor={idOf("message")} className="mb-2 block text-[13px] font-medium text-navy-900">
+              <label htmlFor={idOf("message")} className="mb-2 block text-[13px] font-medium text-iron">
                 {t.form.message} <span className="text-signal-600" aria-hidden="true">*</span>
               </label>
               <textarea
@@ -305,8 +305,8 @@ export default function QuoteForm() {
                 maxLength={3000}
                 placeholder={t.form.messagePlaceholder}
                 className={cn(
-                  "w-full resize-y border-0 border-b bg-transparent px-0.5 py-3 text-[14px] text-ink outline-none transition-colors placeholder:text-mute focus:border-navy-900",
-                  touched.message && errors.message ? "border-error" : "border-line-strong",
+                  "w-full resize-y rounded-[4px] border bg-white px-4 py-3 text-[14px] text-iron outline-none transition-colors placeholder:text-graphite focus:border-navy-900",
+                  touched.message && errors.message ? "border-error" : "border-slate",
                 )}
               />
               <div className="mt-2 flex items-start justify-between gap-4">
@@ -326,7 +326,7 @@ export default function QuoteForm() {
               <button
                 type="submit"
                 disabled={status === "submitting"}
-                className="inline-flex w-full items-center justify-center gap-2 bg-navy-900 px-8 py-4 text-[14px] font-medium tracking-wide text-white shadow-[0_16px_32px_-18px_rgba(14,31,48,0.65)] transition-[background-color,transform,box-shadow] duration-200 hover:bg-navy-800 active:translate-y-px disabled:cursor-wait disabled:opacity-70 sm:w-auto"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-signal-500 px-8 py-3.5 text-[14px] font-medium tracking-wide text-navy-950 transition-[background-color,transform] duration-200 hover:bg-signal-600 active:translate-y-px disabled:cursor-wait disabled:opacity-70 sm:w-auto"
               >
                 {status === "submitting" ? (
                   <>
@@ -345,7 +345,7 @@ export default function QuoteForm() {
               </p>
 
               {status === "error" && !Object.values(errors).some(Boolean) && (
-                <p role="alert" className="mt-4 flex items-start gap-2 border border-error/30 bg-error/5 px-4 py-3 text-[13px] leading-relaxed text-ink">
+                <p role="alert" className="mt-4 flex items-start gap-2 rounded-[4px] border border-error/30 bg-error/5 px-4 py-3 text-[13px] leading-relaxed text-iron">
                   <AlertCircle size={15} className="mt-0.5 shrink-0 text-error" aria-hidden="true" />
                   {t.form.errorSend}{" "}
                   <a className="font-medium underline decoration-signal-600 decoration-2 underline-offset-4" href={`tel:${company.phoneHref}`}>
@@ -355,14 +355,14 @@ export default function QuoteForm() {
                 </p>
               )}
               {status === "offline" && (
-                <div role="alert" className="mt-4 border border-line-strong bg-paper px-4 py-4 text-[13px] leading-relaxed text-ink">
+                <div role="alert" className="mt-4 rounded-[4px] border border-fog bg-white px-4 py-4 text-[13px] leading-relaxed text-iron">
                   <p className="flex items-start gap-2 font-medium text-navy-900">
                     <AlertCircle size={15} className="mt-0.5 shrink-0 text-signal-600" aria-hidden="true" />
                     {t.form.offlineTitle}
                   </p>
-                  <p className="mt-2 text-ink-soft">{t.form.offlineBody(company.phone)}</p>
+                  <p className="mt-2 text-graphite">{t.form.offlineBody(company.phone)}</p>
                   <div className="mt-3 flex flex-wrap gap-3">
-                    <a href={mailtoHref()} className="inline-flex items-center gap-2 bg-navy-900 px-5 py-2.5 text-[13px] font-medium tracking-wide text-white transition-colors hover:bg-navy-800">
+                    <a href={mailtoHref()} className="inline-flex items-center gap-2 rounded-full bg-signal-500 px-5 py-2.5 text-[13px] font-medium tracking-wide text-navy-950 transition-colors hover:bg-signal-600">
                       <Mail size={14} aria-hidden="true" />
                       {t.form.offlineEmail}
                     </a>
@@ -408,7 +408,7 @@ function TextField({
 } & InputHTMLAttributes<HTMLInputElement> & { onChange: (e: ChangeEvent<HTMLInputElement>) => void; onBlur: () => void }) {
   return (
     <div>
-      <label htmlFor={id} className="mb-2 block text-[13px] font-medium text-navy-900">
+      <label htmlFor={id} className="mb-2 block text-[13px] font-medium text-iron">
         {label} {required && <span className="text-signal-600" aria-hidden="true">*</span>}
       </label>
       <input
@@ -418,8 +418,8 @@ function TextField({
         aria-required={required || undefined}
         {...rest}
         className={cn(
-          "w-full border-0 border-b bg-transparent px-0.5 py-3 text-[14px] text-ink outline-none transition-colors placeholder:text-mute focus:border-navy-900",
-          error ? "border-error" : "border-line-strong",
+          "w-full rounded-[4px] border bg-white px-4 py-3 text-[14px] text-iron outline-none transition-colors placeholder:text-graphite focus:border-navy-900",
+          error ? "border-error" : "border-slate",
         )}
       />
       {error ? <FieldError id={`${id}-error`}>{error}</FieldError> : hint ? <p className="mt-2 text-[11.5px] text-mute">{hint}</p> : null}

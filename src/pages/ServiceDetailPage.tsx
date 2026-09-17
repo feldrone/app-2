@@ -50,7 +50,7 @@ export default function ServiceDetailPage({ slug }: { slug: ServicePageSlug }) {
         crumbs={[{ label: c.services, to: PATHS.services }, { label: copy.label }]}
       />
 
-      <section aria-labelledby="service-detail-heading" className="bg-paper py-20 lg:py-28">
+      <section aria-labelledby="service-detail-heading" className="bg-fog py-20 lg:py-28">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
           <h2 id="service-detail-heading" className="sr-only">
             {copy.label}
@@ -59,7 +59,7 @@ export default function ServiceDetailPage({ slug }: { slug: ServicePageSlug }) {
             <div className="lg:col-span-7">
               <p className="text-[16px] leading-relaxed text-ink">{primary.intro}</p>
 
-              <div className="mt-12 border-t border-line pt-10">
+              <div className="mt-12 border-t border-line-fog pt-10">
                 <h3 className="font-display text-[1.15rem] font-medium tracking-tight text-navy-900">{c.coverageTitle}</h3>
                 <ul className="mt-6 grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
                   {points.map((point) => (
@@ -79,7 +79,7 @@ export default function ServiceDetailPage({ slug }: { slug: ServicePageSlug }) {
                       <span className="w-6 shrink-0 font-display text-[12px] font-semibold text-signal-600 tabular-nums">
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <span className="text-[14.5px] leading-relaxed text-ink-soft">{step}</span>
+                      <span className="text-[14.5px] leading-relaxed text-graphite">{step}</span>
                     </li>
                   ))}
                 </ol>
@@ -88,7 +88,7 @@ export default function ServiceDetailPage({ slug }: { slug: ServicePageSlug }) {
 
             <div className="lg:col-span-5">
               <Reveal>
-                <figure className="border border-line bg-white">
+                <figure className="overflow-hidden rounded-[4px] bg-white">
                   <div className="relative aspect-[4/3] w-full overflow-hidden">
                     <img
                       src={image.src}
@@ -102,27 +102,27 @@ export default function ServiceDetailPage({ slug }: { slug: ServicePageSlug }) {
                       decoding="async"
                     />
                   </div>
-                  <figcaption className="border-t border-line px-6 py-4 text-[12px] leading-snug text-mute">
+                  <figcaption className="border-t border-fog px-6 py-4 text-[12px] leading-snug text-slate">
                     {dict.place.seatLine}
                   </figcaption>
                 </figure>
               </Reveal>
 
-              <div className="mt-10 border border-line bg-white p-8">
+              <div className="mt-10 rounded-[4px] bg-white p-8">
                 <h3 className="font-display text-[1.2rem] leading-snug font-medium tracking-tight text-navy-900">{c.ctaTitle}</h3>
-                <p className="mt-4 text-[13.5px] leading-relaxed text-ink-soft">{c.ctaBody}</p>
+                <p className="mt-4 text-[13.5px] leading-relaxed text-graphite">{c.ctaBody}</p>
                 <div className="mt-7 flex flex-col gap-3">
                   <button
                     type="button"
                     onClick={() => requestQuoteRoute(primary.apiValue, navigate)}
-                    className="group inline-flex items-center justify-center gap-2 bg-navy-900 px-6 py-3.5 text-[13px] font-medium tracking-wide text-white shadow-[0_16px_32px_-18px_rgba(14,31,48,0.65)] transition-[background-color,transform] duration-200 hover:bg-navy-800 active:translate-y-px"
+                    className="group inline-flex items-center justify-center gap-2 rounded-full bg-signal-500 px-6 py-3.5 text-[13.5px] font-medium tracking-wide text-navy-950 transition-[background-color,transform] duration-200 hover:bg-signal-600 active:translate-y-px"
                   >
                     {c.quoteCta}
                     <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" aria-hidden="true" />
                   </button>
                   <Link
                     to={PATHS.contact}
-                    className="inline-flex items-center justify-center border border-line-strong px-6 py-3.5 text-[13px] font-medium tracking-wide text-navy-900 transition-colors hover:border-navy-900 hover:bg-paper"
+                    className="inline-flex items-center justify-center rounded-full border border-slate px-6 py-3.5 text-[13.5px] font-medium tracking-wide text-iron transition-colors hover:border-navy-900 hover:text-navy-900"
                   >
                     {c.contactCta}
                   </Link>
@@ -133,7 +133,7 @@ export default function ServiceDetailPage({ slug }: { slug: ServicePageSlug }) {
         </div>
       </section>
 
-      <section aria-labelledby="related-heading" className="bg-white py-18 lg:py-24">
+      <section aria-labelledby="related-heading" className="bg-fog pb-18 lg:pb-24">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
           <h2 id="related-heading" className="font-display text-[1.3rem] font-medium tracking-tight text-navy-900">
             {c.relatedTitle}

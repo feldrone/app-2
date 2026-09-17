@@ -70,20 +70,20 @@ export default function ContactPage() {
         title={t.title}
         lede={t.lede}
         crumbs={[{ label: t.title }]}
-        className="bg-paper"
+        className="bg-fog"
         tone="paper"
       >
         <div className="mt-9 flex flex-wrap items-center gap-4">
           <Link
             to={PATHS.devis}
-            className="group inline-flex items-center gap-2 bg-navy-900 px-6 py-3.5 text-[13px] font-medium tracking-wide text-white shadow-[0_16px_32px_-18px_rgba(14,31,48,0.65)] transition-[background-color,transform] duration-200 hover:bg-navy-800 active:translate-y-px"
+            className="group inline-flex items-center gap-2 rounded-full bg-signal-500 px-6 py-3.5 text-[13.5px] font-medium tracking-wide text-navy-950 transition-[background-color,transform] duration-200 hover:bg-signal-600 active:translate-y-px"
           >
             {c.quoteCta}
             <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" aria-hidden="true" />
           </Link>
           <a
             href={`tel:${company.phoneHref}`}
-            className="inline-flex items-center gap-2 border border-line-strong px-6 py-3.5 text-[13px] font-medium tracking-wide text-navy-900 transition-colors hover:border-navy-900 hover:bg-white"
+            className="inline-flex items-center gap-2 rounded-full border border-slate px-6 py-3.5 text-[13.5px] font-medium tracking-wide text-iron transition-colors hover:border-navy-900 hover:text-navy-900"
           >
             <Phone size={15} aria-hidden="true" />
             {c.phoneCta}
@@ -91,14 +91,14 @@ export default function ContactPage() {
         </div>
       </PageHeader>
 
-      <section aria-labelledby="contact-channels-heading" className="bg-white py-20 lg:py-24">
+      <section aria-labelledby="contact-channels-heading" className="bg-fog py-20 lg:py-24">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
           <div className="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-10">
             <div className="lg:col-span-5">
               <h2 id="contact-channels-heading" className="font-display text-[1.4rem] font-medium tracking-tight text-navy-900">
                 {t.channelsTitle}
               </h2>
-              <ul className="mt-8 border-t border-line">
+              <ul className="mt-8 border-t border-line-fog">
                 {channels.map((channel) => {
                   const Icon = channel.icon;
                   const body = (
@@ -108,11 +108,11 @@ export default function ContactPage() {
                           {channel.label}
                         </span>
                       </span>
-                      <span className="mt-1 block text-[12.5px] text-mute">{channel.note}</span>
+                      <span className="mt-1 block text-[12.5px] text-slate">{channel.note}</span>
                     </>
                   );
                   return (
-                    <li key={channel.note} className="border-b border-line">
+                    <li key={channel.note} className="border-b border-fog">
                       <div className="flex items-start gap-4 py-6">
                         <Icon size={18} className="mt-0.5 shrink-0 text-signal-600" aria-hidden="true" />
                         {channel.href ? (
@@ -134,7 +134,7 @@ export default function ContactPage() {
               </ul>
 
               <Reveal delay={80}>
-                <div className="no-print mt-10 aspect-[4/3] w-full overflow-hidden border border-line grayscale transition-[filter] duration-500 hover:grayscale-0">
+                <div className="no-print mt-10 aspect-[4/3] w-full overflow-hidden rounded-[4px] grayscale transition-[filter] duration-500 hover:grayscale-0">
                   <iframe
                     title={ct.mapTitle}
                     src="https://www.google.com/maps?q=Q9JM%2B542%20A%C3%AFn%20El%20Assel&output=embed"
@@ -148,7 +148,7 @@ export default function ContactPage() {
 
             <div className="lg:col-span-7">
               <h2 className="font-display text-[1.4rem] font-medium tracking-tight text-navy-900">{t.quoteTitle}</h2>
-              <p className="mt-4 max-w-2xl text-[14.5px] leading-relaxed text-ink-soft">{t.quoteBody}</p>
+              <p className="mt-4 max-w-2xl text-[14.5px] leading-relaxed text-graphite">{t.quoteBody}</p>
               <Reveal>
                 <div className="mt-8">
                   <QuoteForm />

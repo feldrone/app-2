@@ -27,23 +27,23 @@ export default function Footer() {
             <Link to={PATHS.home} aria-label={dict.nav.logoHome}>
               <Logo dark />
             </Link>
-            <p className="mt-6 max-w-xs text-[13.5px] leading-relaxed text-white/85">
+            <p className="mt-6 max-w-xs text-[14px] leading-relaxed text-white/70">
               {t.tagline}
             </p>
           </div>
 
           <nav aria-label={t.sitemap} className="lg:col-span-3 lg:col-start-6">
-            <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-white/85">{t.sitemap}</p>
+            <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-white">{t.sitemap}</p>
             <ul className="mt-5 space-y-3">
               {dict.nav.links.map((link) => (
                 <li key={link.href}>
-                  <Link to={link.href} className="text-[13.5px] transition-colors hover:text-white">
+                  <Link to={link.href} className="text-[14px] transition-colors">
                     {link.label}
                   </Link>
                 </li>
               ))}
               <li>
-                <a href="#mentions-legales" className="text-[13.5px]">
+                <a href="#mentions-legales" className="text-[14px]">
                   {t.legalLink}
                 </a>
               </li>
@@ -51,8 +51,8 @@ export default function Footer() {
           </nav>
 
           <div className="lg:col-span-4 lg:col-start-9">
-            <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-white/85">{t.contactTitle}</p>
-            <address className="mt-5 space-y-2.5 text-[13.5px] leading-relaxed not-italic text-white/90">
+            <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-white">{t.contactTitle}</p>
+            <address className="mt-5 space-y-2.5 text-[14px] leading-relaxed not-italic text-white/80">
               <p>{dict.place.seatLine}</p>
               <p>
                 <a href={`mailto:${company.email}`}>
@@ -68,7 +68,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-4 border-t border-white/10 pt-7 text-[12.5px] text-white/85 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-14 flex flex-col gap-4 border-t border-white/10 pt-7 text-[13px] text-white/70 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {new Date().getFullYear()} {company.legalName}. {t.rights}
           </p>

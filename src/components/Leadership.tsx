@@ -18,7 +18,7 @@ export default function Leadership() {
   const t = dict.leadership;
 
   return (
-    <section id="direction" aria-labelledby="leadership-heading" className="bg-white py-32 lg:py-40">
+    <section id="direction" aria-labelledby="leadership-heading" className="bg-fog py-28 lg:py-40">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
         <div className="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-4">
@@ -31,12 +31,12 @@ export default function Leadership() {
           </div>
 
           <div className="lg:col-span-7 lg:col-start-6">
-            <ul className="border-t border-line">
+            <ul className="border-t border-line-fog">
               {t.members.map((member, i) => (
-                <Reveal key={member.name} as="li" delay={i * 80} className="border-b border-line">
+                <Reveal key={member.name} as="li" delay={i * 80} className="border-b border-fog">
                   <div className="flex flex-col gap-4 py-8 sm:flex-row sm:items-start sm:gap-7">
                     <span
-                      className="flex h-14 w-14 shrink-0 items-center justify-center border border-line bg-paper font-display text-[14px] font-semibold tracking-wide text-navy-900"
+                      className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-fog bg-white font-display text-[14px] font-semibold tracking-wide text-navy-900"
                       aria-hidden="true"
                     >
                       <span dir="ltr">{member.initials}</span>
@@ -51,7 +51,7 @@ export default function Leadership() {
                         </span>
                       </div>
                       {member.note && (
-                        <p className="mt-2 max-w-xl text-[14.5px] leading-relaxed text-ink-soft">
+                        <p className="mt-2 max-w-xl text-[14.5px] leading-relaxed text-graphite">
                           {member.note}
                         </p>
                       )}
@@ -60,7 +60,7 @@ export default function Leadership() {
                 </Reveal>
               ))}
             </ul>
-            <p className="mt-5 text-[13px] leading-relaxed text-mute">{t.footnote}</p>
+            <p className="mt-5 text-[13px] leading-relaxed text-slate">{t.footnote}</p>
           </div>
         </div>
       </div>
