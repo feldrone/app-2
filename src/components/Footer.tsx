@@ -76,7 +76,7 @@ export default function Footer() {
             {/* CC-BY-4.0 attribution for the hero 3D model (public/3d/). */}
             <p className="mt-1 text-[11px] text-white/45">
               <a
-                href="https://sketchfab.com/3d-models/fpv-racing-drone-quadcopter-fa8b1ca2695e4022a9b4c70401f04b05"
+                href="https://sketchfab.com/3d-models/none-a8e2c50f69264e75bb6277779fb5028b"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline-offset-2 transition-colors hover:text-white/75 hover:underline"

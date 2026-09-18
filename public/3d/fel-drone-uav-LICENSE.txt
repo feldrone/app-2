@@ -1,11 +1,25 @@
-Model Information:
-* title:	Quadcopter DJI Matrice 300 RTK
-* source:	https://sketchfab.com/3d-models/quadcopter-dji-matrice-300-rtk-6677d02d66df4b73aad0d8e7bb9e3d9c
-* author:	19vitali99 (https://sketchfab.com/19vitali99)
+FEL DRONE — hero 3D asset license & attribution
+================================================
 
-Model License:
-* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
-* requirements:	Author must be credited. Commercial use is allowed.
+File: fel-drone-uav.glb
 
-If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
-This work is based on "Quadcopter DJI Matrice 300 RTK" (https://sketchfab.com/3d-models/quadcopter-dji-matrice-300-rtk-6677d02d66df4b73aad0d8e7bb9e3d9c) by 19vitali99 (https://sketchfab.com/19vitali99) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+Based on: "animated drone with camera (FREE)"
+Source:   https://sketchfab.com/3d-models/none-a8e2c50f69264e75bb6277779fb5028b
+Author:   ulunkwulunk (https://sketchfab.com/ulunkwulunk)
+License:  CC-BY-4.0 — Creative Commons Attribution 4.0 International
+          http://creativecommons.org/licenses/by/4.0/
+          Commercial use is allowed. Attribution is required.
+
+Required credit (rendered in the site footer, all languages):
+This work is based on "animated drone with camera (FREE)"
+(https://sketchfab.com/3d-models/none-a8e2c50f69264e75bb6277779fb5028b)
+by ulunkwulunk, licensed under CC-BY-4.0.
+
+Provenance: downloaded from Sketchfab by the Kronbii/portfolio-website
+project (its public/models/CREDITS.md lists the author, license and source
+per file; Sketchfab authors "confirmed from the API"), then re-encoded for
+web delivery (KHR_mesh_quantization + EXT_meshopt_compression; geometry,
+UVs and texture sets unmodified; specGloss materials converted to
+metallic-roughness where present).
+
+Do not remove the visible footer credit.

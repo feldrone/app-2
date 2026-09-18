@@ -13,21 +13,23 @@ import { cn } from "../utils/cn";
  * drone (DroneFigure remains the loading placeholder, the no-WebGL fallback
  * and the Demonstration banner decoration).
  *
- * MODEL — "Quadcopter DJI Matrice 300 RTK" by 19vitali99, CC-BY-4.0, obtained
- * via njanne19/euas-docs (MIT) and adapted for web delivery with glTF-Transform:
- * the merged transport case was removed, the flat CAD materials were re-authored
- * as an industrial two-tone PBR set (light shell / graphite arms / black polymer
- * props / gold status lamp / glass optics), meshes were welded, simplified and
- * quantized, and the vertex buffers compressed with EXT_meshopt_compression
- * (hence the MeshoptDecoder below): 3.23 MiB, ~402k triangles, 28 materials,
- * 7 glass optics materials, three separable propeller nodes. The source model
- * has no animation clip and bakes all node pivots, so propellers stay static —
- * motion is hover/parallax/entrance only. Full attribution ships next to the
- * asset (public/3d/fel-drone-uav-LICENSE.txt) and must be preserved:
+ * MODEL — "animated drone with camera (FREE)" by ulunkwulunk, CC-BY-4.0,
+ * obtained from the Kronbii/portfolio-website provenance set (CREDITS.md
+ * records author/license/source per file) and re-encoded for web delivery:
+ * geometry, UVs and the WebP texture set (5 images, 6 maps incl. 2 normal
+ * maps) are unmodified; legacy specGloss materials converted to
+ * metallic-roughness; buffers quantized + EXT_meshopt_compression (hence
+ * the MeshoptDecoder below). 3.61 MiB, ~77k triangles, 2 materials, a real
+ * textured gimbal camera. The authored clips reposition the airframe
+ * (take-off style) and are intentionally NOT auto-played — presentation is
+ * a static product shot; motion = hover/parallax/entrance. Framing uses a
+ * skinned-aware bounding box (bone-transformed vertices), because these
+ * meshes measure ~25x too small unskinned. Full attribution ships next to
+ * the asset (public/3d/fel-drone-uav-LICENSE.txt) and must be preserved:
  *
- *   This work is based on "Quadcopter DJI Matrice 300 RTK"
- *   (https://sketchfab.com/3d-models/quadcopter-dji-matrice-300-rtk-6677d02d66df4b73aad0d8e7bb9e3d9c)
- *   by 19vitali99 (https://sketchfab.com/19vitali99), CC-BY-4.0.
+ *   This work is based on "animated drone with camera (FREE)"
+ *   (https://sketchfab.com/3d-models/none-a8e2c50f69264e75bb6277779fb5028b)
+ *   by ulunkwulunk, licensed under CC-BY-4.0.
  *
  * FRAMING — computed from the model's bounding box (center/radius → camera
  * distance), never a hardcoded scale, so the UAV stays correctly framed from
@@ -100,7 +102,7 @@ export default function Drone3D({ className }: { className?: string }) {
       Math.min(window.devicePixelRatio || 1, isSmallViewport ? DRONE_CONFIG.maxPixelRatioMobile : DRONE_CONFIG.maxPixelRatioDesktop),
     );
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 0.95;
+    renderer.toneMappingExposure = 1.06;
     renderer.domElement.style.width = "100%";
     renderer.domElement.style.height = "100%";
     renderer.domElement.style.display = "block";
@@ -116,7 +118,7 @@ export default function Drone3D({ className }: { className?: string }) {
     const pmrem = new THREE.PMREMGenerator(renderer);
     const envScene = new RoomEnvironment();
     scene.environment = pmrem.fromScene(envScene, 0.04).texture;
-    scene.environmentIntensity = 0.45;
+    scene.environmentIntensity = 0.6;
     envScene.traverse((obj) => {
       const mat = (obj as THREE.Mesh).material as THREE.MeshBasicMaterial | undefined;
       if (mat) mat.dispose();
@@ -131,7 +133,7 @@ export default function Drone3D({ className }: { className?: string }) {
     rim.position.set(-3.2, 2.8, -2.8);
     const edge = new THREE.DirectionalLight(0xdfe8ff, 0.25);
     edge.position.set(0.6, 1.4, -3.4);
-    const fill = new THREE.DirectionalLight(0xffffff, 0.22);
+    const fill = new THREE.DirectionalLight(0xffffff, 0.3);
     fill.position.set(-2.0, 0.7, 2.6);
     scene.add(key, rim, edge, fill);
 
@@ -216,6 +218,40 @@ export default function Drone3D({ className }: { className?: string }) {
       });
     };
 
+    /* Skinned-aware bounding box: Box3.setFromObject measures unskinned
+       geometry, which is wrong for rigged models (the visual pose comes from
+       the skeleton). Walk vertices once at load and apply bone transforms. */
+    const computeRenderBox = (object: THREE.Object3D) => {
+      const box = new THREE.Box3();
+      const v = new THREE.Vector3();
+      object.updateMatrixWorld(true);
+      object.traverse((obj) => {
+        const mesh = obj as THREE.Mesh;
+        if (!mesh.geometry) return;
+        const skinned = obj as THREE.SkinnedMesh;
+        if (skinned.isSkinnedMesh && skinned.skeleton) {
+          skinned.skeleton.update();
+          const pos = mesh.geometry.getAttribute("position");
+          if (pos) {
+            const step = pos.count > 60000 ? 2 : 1;
+            const part = new THREE.Box3();
+            for (let i = 0; i < pos.count; i += step) {
+              v.fromBufferAttribute(pos, i);
+              skinned.applyBoneTransform(i, v);
+              v.applyMatrix4(skinned.matrixWorld);
+              part.expandByPoint(v);
+            }
+            box.union(part);
+          }
+        } else {
+          mesh.geometry.computeBoundingBox();
+          const b = mesh.geometry.boundingBox;
+          if (b) box.union(b.clone().applyMatrix4(mesh.matrixWorld));
+        }
+      });
+      return box.isEmpty() ? new THREE.Box3().setFromObject(object) : box;
+    };
+
     /* Model load — repository-local GLB, framed from its bounding box. */
     const loader = new GLTFLoader();
     loader.setMeshoptDecoder(MeshoptDecoder); // EXT_meshopt_compression buffers
@@ -229,7 +265,7 @@ export default function Drone3D({ className }: { className?: string }) {
         const model = gltf.scene;
 
         // Normalize scale + center on the pivot (bounding-box framing).
-        const box = new THREE.Box3().setFromObject(model);
+        const box = computeRenderBox(model);
         const size = box.getSize(new THREE.Vector3());
         const center = box.getCenter(new THREE.Vector3());
         const maxDim = Math.max(size.x, size.y, size.z) || 1;
@@ -252,14 +288,11 @@ export default function Drone3D({ className }: { className?: string }) {
           }
         });
 
-        // If the model ships an animation clip, play it (current asset: none —
-        // node pivots are baked, so propellers stay static by design).
-        const clip = gltf.animations.find((a) => a.name === "Take 001") ?? gltf.animations[0];
-        if (clip) {
-          mixer = new THREE.AnimationMixer(model);
-          mixer.clipAction(clip).play();
-          if (reducedRef.current) mixer.timeScale = 0;
-        }
+        // Authored clips are NOT auto-played: this asset's clips reposition the
+        // airframe (take-off/fly-by style), which breaks the product-shot
+        // presentation. The hero motion language is hover + parallax + entrance
+        // (below). Propellers stay static — consistent with the previous asset.
+        void gltf.animations;
 
         // Camera — three-quarter product view, distance from the normalized
         // bounding sphere so the whole airframe (props included) stays in

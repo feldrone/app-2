@@ -598,7 +598,7 @@ export const en: Dictionary = {
     legalLink: "Legal notice",
     contactTitle: "Contact details",
     rights: "All rights reserved.",
-    credit3d: "3D model: “Quadcopter DJI Matrice 300 RTK” by 19vitali99, CC BY 4.0, via Sketchfab.",
+    credit3d: "3D model: “animated drone with camera” by ulunkwulunk, CC BY 4.0, via Sketchfab.",
     backToTop: "Back to top",
   },
 
