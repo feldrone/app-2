@@ -603,7 +603,7 @@ export const ar: Dictionary = {
     legalLink: "المعلومات القانونية",
     contactTitle: "معلومات الاتصال",
     rights: "جميع الحقوق محفوظة.",
-    credit3d: "نموذج ثلاثي الأبعاد: «Fpv Racing Drone Quadcopter» بواسطة eagleanurag، رخصة CC BY 4.0، عبر Sketchfab.",
+    credit3d: "نموذج ثلاثي الأبعاد: «Quadcopter DJI Matrice 300 RTK» بواسطة 19vitali99، رخصة CC BY 4.0، عبر Sketchfab.",
     backToTop: "أعلى الصفحة",
   },
 

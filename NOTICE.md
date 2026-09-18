@@ -2,9 +2,9 @@
 
 ## `public/3d/fel-drone-uav.glb` (+ `public/3d/fel-drone-uav-LICENSE.txt`)
 
-This work is based on **"Fpv Racing Drone Quadcopter"**
-(https://sketchfab.com/3d-models/fpv-racing-drone-quadcopter-fa8b1ca2695e4022a9b4c70401f04b05)
-by **eagleanurag** (https://sketchfab.com/eagleanurag), licensed under
+This work is based on **"Quadcopter DJI Matrice 300 RTK"**
+(https://sketchfab.com/3d-models/quadcopter-dji-matrice-300-rtk-6677d02d66df4b73aad0d8e7bb9e3d9c)
+by **19vitali99** (https://sketchfab.com/19vitali99), licensed under
 **Creative Commons Attribution 4.0 International (CC-BY-4.0)**
 (http://creativecommons.org/licenses/by/4.0/).
 
@@ -16,6 +16,13 @@ by **eagleanurag** (https://sketchfab.com/eagleanurag), licensed under
   (`src/components/Footer.tsx`, dictionary key `footer.credit3d` in
   `src/data/content.fr.ts` / `content.en.ts` / `content.ar.ts`), linking to the
   source model page. Do not remove it.
-- Modifications: optimized for web delivery with glTF-Transform (texture resize to
-  ≤1024px, weld, dedup, prune, mesh simplification, KHR_mesh_quantization).
-  Materials and the authored propeller animation ("Take 001") are preserved.
+- Modifications for web delivery (glTF-Transform 4.5): the merged transport-case
+  geometry was removed; flat CAD materials were re-authored as an industrial PBR
+  set (two-tone grey shell, graphite arms, black polymer, gold status-lamp accent,
+  glass optics); meshes welded, simplified (meshoptimizer) and quantized
+  (KHR_mesh_quantization); vertex buffers compressed (EXT_meshopt_compression).
+  The model ships without animation; propeller nodes are separable but their
+  pivots are baked at the model origin, so propellers are intentionally static.
+- Trademark note: the model depicts the general form of a commercial UAV platform.
+  No manufacturer logo, trademark or proprietary branding is rendered by the site,
+  and the site does not claim any manufacturer affiliation.

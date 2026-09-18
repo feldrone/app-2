@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import type { GLTF } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.js";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 import DroneFigure from "./DroneFigure";
 import { cn } from "../utils/cn";
@@ -12,28 +13,33 @@ import { cn } from "../utils/cn";
  * drone (DroneFigure remains the loading placeholder, the no-WebGL fallback
  * and the Demonstration banner decoration).
  *
- * MODEL — "Fpv Racing Drone Quadcopter" by eagleanurag, CC-BY-4.0, obtained
- * via njanne19/euas-docs (MIT) and optimized with glTF-Transform (texture
- * resize, weld/dedup/prune, simplify, KHR_mesh_quantization): 3.19 MiB,
- * ~106k triangles, 21 PBR materials, 5 textures, camera-lens detail, and the
- * authored clip "Take 001" which rotates the four propeller nodes
- * (polySurface270–273) and wobbles the antenna. Full attribution ships next
- * to the asset (public/3d/fel-drone-uav-LICENSE.txt) and must be preserved:
+ * MODEL — "Quadcopter DJI Matrice 300 RTK" by 19vitali99, CC-BY-4.0, obtained
+ * via njanne19/euas-docs (MIT) and adapted for web delivery with glTF-Transform:
+ * the merged transport case was removed, the flat CAD materials were re-authored
+ * as an industrial two-tone PBR set (light shell / graphite arms / black polymer
+ * props / gold status lamp / glass optics), meshes were welded, simplified and
+ * quantized, and the vertex buffers compressed with EXT_meshopt_compression
+ * (hence the MeshoptDecoder below): 3.23 MiB, ~402k triangles, 28 materials,
+ * 7 glass optics materials, three separable propeller nodes. The source model
+ * has no animation clip and bakes all node pivots, so propellers stay static —
+ * motion is hover/parallax/entrance only. Full attribution ships next to the
+ * asset (public/3d/fel-drone-uav-LICENSE.txt) and must be preserved:
  *
- *   This work is based on "Fpv Racing Drone Quadcopter"
- *   (https://sketchfab.com/3d-models/fpv-racing-drone-quadcopter-fa8b1ca2695e4022a9b4c70401f04b05)
- *   by eagleanurag (https://sketchfab.com/eagleanurag), CC-BY-4.0.
+ *   This work is based on "Quadcopter DJI Matrice 300 RTK"
+ *   (https://sketchfab.com/3d-models/quadcopter-dji-matrice-300-rtk-6677d02d66df4b73aad0d8e7bb9e3d9c)
+ *   by 19vitali99 (https://sketchfab.com/19vitali99), CC-BY-4.0.
  *
  * FRAMING — computed from the model's bounding box (center/radius → camera
  * distance), never a hardcoded scale, so the UAV stays correctly framed from
  * desktop down to mobile.
  *
- * MOTION — one rAF loop, zero per-frame React state: the authored propeller
- * clip plays on an AnimationMixer; the airframe keeps station with a small
- * irregular hover; fine pointers get a clamped, eased parallax; a restrained
- * fade-and-settle entrance runs once. `prefers-reduced-motion` pauses the
- * mixer and disables hover/parallax/entrance — the UAV renders as a static
- * product shot, never removed.
+ * MOTION — one rAF loop, zero per-frame React state: the airframe keeps
+ * station with a small irregular hover; fine pointers get a clamped, eased
+ * parallax; a restrained fade-and-settle entrance runs once. If the model
+ * ships an animation clip it is played on an AnimationMixer (the current
+ * asset has none). `prefers-reduced-motion` disables hover/parallax/entrance
+ * and pauses any mixer — the UAV renders as a static product shot, never
+ * removed.
  *
  * PERFORMANCE / RESILIENCE — DPR clamped (1.75 desktop / 1.5 mobile), no
  * post-processing, rendering pauses when the hero leaves the viewport or the
@@ -94,7 +100,7 @@ export default function Drone3D({ className }: { className?: string }) {
       Math.min(window.devicePixelRatio || 1, isSmallViewport ? DRONE_CONFIG.maxPixelRatioMobile : DRONE_CONFIG.maxPixelRatioDesktop),
     );
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.08;
+    renderer.toneMappingExposure = 0.95;
     renderer.domElement.style.width = "100%";
     renderer.domElement.style.height = "100%";
     renderer.domElement.style.display = "block";
@@ -110,18 +116,22 @@ export default function Drone3D({ className }: { className?: string }) {
     const pmrem = new THREE.PMREMGenerator(renderer);
     const envScene = new RoomEnvironment();
     scene.environment = pmrem.fromScene(envScene, 0.04).texture;
+    scene.environmentIntensity = 0.45;
     envScene.traverse((obj) => {
       const mat = (obj as THREE.Mesh).material as THREE.MeshBasicMaterial | undefined;
       if (mat) mat.dispose();
     });
 
-    const key = new THREE.DirectionalLight(0xffffff, 1.35);
-    key.position.set(2.8, 4.2, 2.4);
-    const rim = new THREE.DirectionalLight(0xe6edff, 2.0);
+    /* Three-point studio rig, tuned for a light industrial shell: the key
+       models the top decks, the rim separates the silhouette from the void,
+       edge+fill lift the dark side. Combined ≈ 2.1 so ACES keeps highlights. */
+    const key = new THREE.DirectionalLight(0xfff2e2, 0.9);
+    key.position.set(2.6, 4.4, 2.2);
+    const rim = new THREE.DirectionalLight(0xe6edff, 0.95);
     rim.position.set(-3.2, 2.8, -2.8);
-    const edge = new THREE.DirectionalLight(0xdfe8ff, 0.5);
+    const edge = new THREE.DirectionalLight(0xdfe8ff, 0.25);
     edge.position.set(0.6, 1.4, -3.4);
-    const fill = new THREE.DirectionalLight(0xffffff, 0.38);
+    const fill = new THREE.DirectionalLight(0xffffff, 0.22);
     fill.position.set(-2.0, 0.7, 2.6);
     scene.add(key, rim, edge, fill);
 
@@ -207,7 +217,9 @@ export default function Drone3D({ className }: { className?: string }) {
     };
 
     /* Model load — repository-local GLB, framed from its bounding box. */
-    new GLTFLoader().load(
+    const loader = new GLTFLoader();
+    loader.setMeshoptDecoder(MeshoptDecoder); // EXT_meshopt_compression buffers
+    loader.load(
       DRONE_CONFIG.modelUrl,
       (gltf: GLTF) => {
         if (disposed) {
@@ -240,7 +252,8 @@ export default function Drone3D({ className }: { className?: string }) {
           }
         });
 
-        // The authored clip spins the four propellers (+ antenna sway).
+        // If the model ships an animation clip, play it (current asset: none —
+        // node pivots are baked, so propellers stay static by design).
         const clip = gltf.animations.find((a) => a.name === "Take 001") ?? gltf.animations[0];
         if (clip) {
           mixer = new THREE.AnimationMixer(model);

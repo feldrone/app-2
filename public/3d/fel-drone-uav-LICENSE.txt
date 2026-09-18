@@ -1,11 +1,11 @@
 Model Information:
-* title:	Fpv Racing Drone Quadcopter
-* source:	https://sketchfab.com/3d-models/fpv-racing-drone-quadcopter-fa8b1ca2695e4022a9b4c70401f04b05
-* author:	eagleanurag (https://sketchfab.com/eagleanurag)
+* title:	Quadcopter DJI Matrice 300 RTK
+* source:	https://sketchfab.com/3d-models/quadcopter-dji-matrice-300-rtk-6677d02d66df4b73aad0d8e7bb9e3d9c
+* author:	19vitali99 (https://sketchfab.com/19vitali99)
 
 Model License:
 * license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
 * requirements:	Author must be credited. Commercial use is allowed.
 
 If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
-This work is based on "Fpv Racing Drone Quadcopter" (https://sketchfab.com/3d-models/fpv-racing-drone-quadcopter-fa8b1ca2695e4022a9b4c70401f04b05) by eagleanurag (https://sketchfab.com/eagleanurag) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+This work is based on "Quadcopter DJI Matrice 300 RTK" (https://sketchfab.com/3d-models/quadcopter-dji-matrice-300-rtk-6677d02d66df4b73aad0d8e7bb9e3d9c) by 19vitali99 (https://sketchfab.com/19vitali99) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
